@@ -37,5 +37,10 @@ public class UserController {
 
         return userService.updateUser(id, user);
     }
+    @DeleteMapping("/delete/{id}")
+    public String deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+        return "User Deleted Successfully";
+    }
 
 }
