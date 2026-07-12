@@ -23,6 +23,18 @@ public class HostelController {
     public List<Hostel> getAllHostels() {
         return hostelService.getAllHostels();
     }
+    @GetMapping("/{id}")
+    public Hostel getHostelById(@PathVariable Integer id) {
+        return hostelService.getHostelById(id);
+    }
+    @GetMapping("/city/{city}")
+    public List<Hostel> getHostelsByCity(@PathVariable String city) {
+        return hostelService.getHostelsByCity(city);
+    }
+    @GetMapping("/price/{price}")
+    public List<Hostel> getHostelsByPrice(@PathVariable Double price) {
+        return hostelService.getHostelsByPrice(price);
+    }
 
     @PutMapping("/update/{id}")
     public Hostel updateHostel(@PathVariable Integer id,

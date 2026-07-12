@@ -15,6 +15,8 @@ public class Hostel {
     private Double price;
     private String description;
     private String imageUrl;
+    private String ownerName;
+    private String ownerPhone;
 
     public Hostel() {
     }
@@ -73,5 +75,20 @@ public class Hostel {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+
+    public String getOwnerPhone() {
+        return ownerPhone;
+    }
+
+    public void setOwnerPhone(String ownerPhone) {
+        this.ownerPhone = ownerPhone;
     }
 }

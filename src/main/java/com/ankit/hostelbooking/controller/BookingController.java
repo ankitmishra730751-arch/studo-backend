@@ -14,14 +14,22 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping("/add")
-    public Booking addBooking(@RequestBody Booking booking) {
-        return bookingService.addBooking(booking);
+    @PostMapping("/add/{userId}/{hostelId}")
+    public Booking addBooking(
+            @RequestBody Booking booking,
+            @PathVariable Integer userId,
+            @PathVariable Integer hostelId) {
+
+        return bookingService.addBooking(booking, userId, hostelId);
     }
 
     @GetMapping
     public List<Booking> getAllBookings() {
         return bookingService.getAllBookings();
+    }
+    @GetMapping("/{id}")
+    public Booking getBookingById(@PathVariable Integer id) {
+        return bookingService.getBookingById(id);
     }
     @PutMapping("/update/{id}")
     public Booking updateBooking(@PathVariable Integer id,

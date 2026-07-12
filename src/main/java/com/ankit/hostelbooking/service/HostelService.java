@@ -20,6 +20,15 @@ public class HostelService {
     public List<Hostel> getAllHostels() {
         return hostelRepository.findAll();
     }
+    public List<Hostel> getHostelsByCity(String city) {
+        return hostelRepository.findByCity(city);
+    }
+    public List<Hostel> getHostelsByPrice(Double price) {
+        return hostelRepository.findByPriceLessThanEqual(price);
+    }
+    public Hostel getHostelById(Integer id) {
+        return hostelRepository.findById(id).orElse(null);
+    }
 
     public Hostel updateHostel(Integer id, Hostel updatedHostel) {
 

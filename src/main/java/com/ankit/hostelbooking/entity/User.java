@@ -1,6 +1,7 @@
 package com.ankit.hostelbooking.entity;
 
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
     @Entity
     @Table(name = "users")
@@ -14,6 +15,9 @@ import jakarta.persistence.*;
 
         @Column(unique = true)
         private String email;
+
+        @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+
 
         private String password;
 

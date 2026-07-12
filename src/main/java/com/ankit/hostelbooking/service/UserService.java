@@ -1,29 +1,45 @@
 package com.ankit.hostelbooking.service;
 import java.util.List;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.ankit.hostelbooking.entity.User;
 import com.ankit.hostelbooking.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.ankit.hostelbooking.security.JwtUtil;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+    @Autowired
+    private JwtUtil jwtUtil;
     public User registerUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
         public List<User> getAllUsers() {
             return userRepository.findAll();
         }
-    public User login(String email, String password) {
+    public String login(String email, String password) {
+
         User user = userRepository.findByEmail(email);
 
-        if (user != null && user.getPassword().equals(password)) {
-            return user;
+        System.out.println("User = " + user);
+
+        if (user != null) {
+            System.out.println("DB Password = " + user.getPassword());
+            System.out.println("Password Match = " +
+                    passwordEncoder.matches(password, user.getPassword()));
         }
 
-        return null;
+        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            return jwtUtil.generateToken(email);
+        }
+
+        return "Login Failed";
     }
     public User updateUser(Integer id, User updatedUser) {
 

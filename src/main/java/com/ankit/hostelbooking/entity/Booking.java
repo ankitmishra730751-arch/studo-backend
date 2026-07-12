@@ -1,5 +1,6 @@
 package com.ankit.hostelbooking.entity;
-
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.*;
 import java.time.LocalDate;
 
@@ -10,10 +11,15 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String studentName;
-    private String hostelName;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "hostel_id")
+    private Hostel hostel;
     private String roomType;
     private LocalDate bookingDate;
+    private String status;
 
     public Booking() {
     }
@@ -26,20 +32,20 @@ public class Booking {
         this.id = id;
     }
 
-    public String getStudentName() {
-        return studentName;
+    public User getUser() {
+        return user;
     }
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public String getHostelName() {
-        return hostelName;
+    public Hostel getHostel() {
+        return hostel;
     }
 
-    public void setHostelName(String hostelName) {
-        this.hostelName = hostelName;
+    public void setHostel(Hostel hostel) {
+        this.hostel = hostel;
     }
 
     public String getRoomType() {
@@ -56,5 +62,12 @@ public class Booking {
 
     public void setBookingDate(LocalDate bookingDate) {
         this.bookingDate = bookingDate;
+    }
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
