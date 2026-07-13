@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/bookings")
 public class BookingController {
@@ -14,13 +14,12 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @PostMapping("/add/{userId}/{hostelId}")
+    @PostMapping("/add/{hostelId}")
     public Booking addBooking(
             @RequestBody Booking booking,
-            @PathVariable Integer userId,
             @PathVariable Integer hostelId) {
 
-        return bookingService.addBooking(booking, userId, hostelId);
+        return bookingService.addBooking(booking, null, hostelId);
     }
 
     @GetMapping

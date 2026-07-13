@@ -36,6 +36,7 @@ public class UserService {
         }
 
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+            System.out.println("User ID = " + user.getId());
             return jwtUtil.generateToken(email);
         }
 

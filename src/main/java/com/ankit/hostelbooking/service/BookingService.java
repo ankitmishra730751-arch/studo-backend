@@ -2,7 +2,8 @@ package com.ankit.hostelbooking.service;
 import com.ankit.hostelbooking.entity.User;
 import com.ankit.hostelbooking.entity.Hostel;
 import java.time.LocalDate;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import com.ankit.hostelbooking.repository.UserRepository;
 import com.ankit.hostelbooking.repository.HostelRepository;
 import com.ankit.hostelbooking.entity.Booking;
@@ -25,7 +26,15 @@ public class BookingService {
 
     public Booking addBooking(Booking booking, Integer userId, Integer hostelId) {
 
-        User user = userRepository.findById(userId).orElse(null);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+        System.out.println("Authentication = " + authentication);
+        System.out.println("Email = " + email);
+
+        User user = userRepository.findByEmail(email);
+        System.out.println("User = " + user);
+        System.out.println("Logged In User = " + user.getId());
         Hostel hostel = hostelRepository.findById(hostelId).orElse(null);
 
         booking.setUser(user);
