@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.ankit.hostelbooking.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
@@ -28,9 +30,10 @@ public class UserController {
     }
     @PostMapping("/login")
     public String login(@RequestParam String email,
-                      @RequestParam String password) {
+                        @RequestParam String password,
+                        @RequestParam String role) {
 
-        return userService.login(email, password);
+        return userService.login(email, password, role);
     }
     @PutMapping("/update/{id}")
     public User updateUser(@PathVariable Integer id,
@@ -42,6 +45,16 @@ public class UserController {
     public String deleteUser(@PathVariable Integer id) {
         userService.deleteUser(id);
         return "User Deleted Successfully";
+    }
+    @GetMapping("/profile")
+    public User getProfile() {
+
+        Authentication authentication =
+                SecurityContextHolder.getContext().getAuthentication();
+
+        String email = authentication.getName();
+
+        return userService.getUserProfile(email);
     }
 
 }

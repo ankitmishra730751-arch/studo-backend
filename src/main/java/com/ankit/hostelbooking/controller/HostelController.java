@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hostels")
+@CrossOrigin(origins = "http://localhost:5173")
 public class HostelController {
 
     @Autowired
@@ -23,17 +24,25 @@ public class HostelController {
     public List<Hostel> getAllHostels() {
         return hostelService.getAllHostels();
     }
+
     @GetMapping("/{id}")
     public Hostel getHostelById(@PathVariable Integer id) {
         return hostelService.getHostelById(id);
     }
+
     @GetMapping("/city/{city}")
     public List<Hostel> getHostelsByCity(@PathVariable String city) {
         return hostelService.getHostelsByCity(city);
     }
+
     @GetMapping("/price/{price}")
     public List<Hostel> getHostelsByPrice(@PathVariable Double price) {
         return hostelService.getHostelsByPrice(price);
+    }
+
+    @GetMapping("/search/{name}")
+    public List<Hostel> searchByName(@PathVariable String name) {
+        return hostelService.getHostelsByName(name);
     }
 
     @PutMapping("/update/{id}")
@@ -41,6 +50,7 @@ public class HostelController {
                                @RequestBody Hostel hostel) {
         return hostelService.updateHostel(id, hostel);
     }
+
     @DeleteMapping("/delete/{id}")
     public String deleteHostel(@PathVariable Integer id) {
         hostelService.deleteHostel(id);

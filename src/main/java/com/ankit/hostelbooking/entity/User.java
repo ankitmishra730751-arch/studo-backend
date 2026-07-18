@@ -2,6 +2,8 @@ package com.ankit.hostelbooking.entity;
 
 import jakarta.persistence.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import java.time.LocalDateTime;
+import jakarta.persistence.PrePersist;
 
     @Entity
     @Table(name = "users")
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
         private String phone;
 
         private String role;
+        private LocalDateTime createdAt;
 
         public User() {
         }
@@ -74,5 +77,17 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
         public void setRole(String role) {
             this.role = role;
+        }
+
+        public LocalDateTime getCreatedAt() {
+            return createdAt;
+        }
+
+        public void setCreatedAt(LocalDateTime createdAt) {
+            this.createdAt = createdAt;
+        }
+        @PrePersist
+        public void prePersist() {
+            this.createdAt = LocalDateTime.now();
         }
     }

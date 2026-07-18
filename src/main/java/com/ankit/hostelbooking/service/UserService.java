@@ -17,13 +17,19 @@ public class UserService {
     @Autowired
     private JwtUtil jwtUtil;
     public User registerUser(User user) {
+
+        if (userRepository.findByEmail(user.getEmail()) != null) {
+            throw new RuntimeException("Email already registered");
+        }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         return userRepository.save(user);
     }
         public List<User> getAllUsers() {
             return userRepository.findAll();
         }
-    public String login(String email, String password) {
+    public String login(String email, String password, String role) {
 
         User user = userRepository.findByEmail(email);
 
@@ -35,8 +41,10 @@ public class UserService {
                     passwordEncoder.matches(password, user.getPassword()));
         }
 
-        if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            System.out.println("User ID = " + user.getId());
+        if (user != null
+                && passwordEncoder.matches(password, user.getPassword())
+                && user.getRole().equalsIgnoreCase(role)) {
+
             return jwtUtil.generateToken(email);
         }
 
@@ -60,6 +68,9 @@ public class UserService {
     }
     public void deleteUser(Integer id) {
         userRepository.deleteById(id);
+    }
+    public User getUserProfile(String email) {
+        return userRepository.findByEmail(email);
     }
     }
 
