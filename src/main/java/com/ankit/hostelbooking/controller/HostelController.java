@@ -9,7 +9,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hostels")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = {
+        "http://localhost:5173",
+        "https://studo-frontend.vercel.app",
+        "https://stubo.in",
+        "https://www.stubo.in"
+})
 public class HostelController {
 
     @Autowired

@@ -16,7 +16,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 @RestController
 @CrossOrigin(origins = {
         "http://localhost:5173",
-        "https://studo-frontend.vercel.app"
+        "https://studo-frontend.vercel.app",
+        "https://stubo.in",
+        "https://www.stubo.in"
 })
 @RequestMapping("/users")
 public class UserController {

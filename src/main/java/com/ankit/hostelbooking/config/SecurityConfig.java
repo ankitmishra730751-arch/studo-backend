@@ -52,9 +52,10 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "https://studo-frontend.vercel.app"
+                "https://studo-frontend.vercel.app",
+                "https://stubo.in",
+                "https://www.stubo.in"
         ));
-
         configuration.setAllowedMethods(List.of(
                 "GET",
                 "POST",
