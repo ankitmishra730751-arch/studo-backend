@@ -30,6 +30,10 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/users/register",
                                 "/users/login",
+
+                                "/owners/register",
+                                "/owners/login",
+
                                 "/bookings/**",
                                 "/hostels/**"
                         ).permitAll()

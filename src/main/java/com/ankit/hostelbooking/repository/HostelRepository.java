@@ -12,5 +12,6 @@ public interface HostelRepository extends JpaRepository<Hostel, Integer> {
     List<Hostel> findByPriceLessThanEqual(Double price);
 
     List<Hostel> findByNameContainingIgnoreCase(String name);
+    Hostel findByOwnerPhone(String ownerPhone);
 
 }
